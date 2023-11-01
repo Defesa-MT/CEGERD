@@ -1,5 +1,6 @@
 import folium
 import requests
+from googletrans import Translator
 
 # Criar um mapa centrado em uma coordenada específica (latitude, longitude)
 mapa = folium.Map(location=[-13.3134, -55.9704], zoom_start=6)
@@ -46,7 +47,7 @@ for foco in focos_queimadas[1:]:
 # Adicionar marcadores para as cidades e dados do clima e umidade
 for cidade, coordenadas in cidades.items():
     lat, lon = coordenadas
-    link = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_KEY}"
+    link = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_KEY}&lang=pt"  # Adicionei o parâmetro lang=pt
     requisicao = requests.get(link)
     requisicao_dic = requisicao.json()
     descricao = requisicao_dic['weather'][0]['description']
