@@ -25,11 +25,11 @@ cidades = {
 }
 
 API_KEY = "d2f43db503fef82f2052e803c234e2f2"
-FIRMS_API_KEY = "0271d81cbe14958f860ce3be33c8a25e"
+FIRMS_API_KEY = "5184f331c2b6a817cd5a21d0c6880681"
 
 # Função para obter dados da FIRMS API (incêndios em tempo real)
 def obter_focos_queimadas():
-    url = "https://firms.modaps.eosdis.nasa.gov/api/area/csv/0271d81cbe14958f860ce3be33c8a25e/VIIRS_SNPP_NRT/world/1"
+    url = f"https://firms.modaps.eosdis.nasa.gov/api/area/csv/{FIRMS_API_KEY}/VIIRS_SNPP_NRT/world/1"
     response = requests.get(url)
     linhas = response.text.split('\n')
     return [linha.split(',') for linha in linhas if linha]
@@ -52,7 +52,7 @@ for cidade, coordenadas in cidades.items():
     descricao = requisicao_dic['weather'][0]['description']
     temperatura = requisicao_dic['main']['temp'] - 273.15
     umidade = requisicao_dic['main']['humidity']
-
+   
     # Definir ícone e cor com base na temperatura
     if temperatura > 38:
         icone = folium.Icon(color='red')
