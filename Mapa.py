@@ -94,10 +94,13 @@ for cidade, coordenadas in cidades.items():
     descricao = requisicao_dic['weather'][0]['description']
     temperatura = requisicao_dic['main']['temp'] - 273.15
     umidade = requisicao_dic['main']['humidity']
+    chuva = 'chuva' in descricao.lower()  # Verifica se a descrição contém a palavra "rain"
    
-    # Definir ícone e cor com base na temperatura
+    # Definir ícone e cor com base na temperatura e chuva
     if temperatura > 38:
         icone = folium.Icon(color='red')
+    elif chuva:
+        icone = folium.Icon(color='yellow')
     else:
         icone = folium.Icon(color='blue')
     
@@ -105,9 +108,9 @@ for cidade, coordenadas in cidades.items():
     pop_up = f"Cidade: {cidade}<br>Descrição: {descricao}<br>Temperatura: {temperatura:.2f}°C<br>Umidade: {umidade}%"
     folium.Marker(coordenadas, icon=icone, popup=folium.Popup(pop_up, parse_html=True)).add_to(mapa)
 
-# Adicionar camada de mapa de satélite para Mato Grosso
-folium.TileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-                 attr='Esri', name='Esri Satellite', overlay=True).add_to(mapa)
+
+# Adicionar camada de mapa do OpenStreetMap
+folium.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', attr='OpenStreetMap', name='OpenStreetMap').add_to(mapa)
 
 # Salvar o mapa como um arquivo HTML
 mapa.save('templates/mapa.html')
