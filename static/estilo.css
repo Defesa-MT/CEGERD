@@ -6,14 +6,19 @@
 
 /* Imagem de fundo */
 body {
-    background: url(ima.png);
+    background: url("foco\ 1.jpg");
     background-size: cover;
-    background-repeat: no-repeat; /* Evita repetição da imagem */
-    background-position: center center; /* Centraliza a imagem */
+    background-repeat: no-repeat;
+    background-position: center center;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+
+    /* Usa a interpolação bicúbica para renderizar a imagem */
+    img {
+        image-rendering: bicubic;
+    }
 }
 
 /* Fundo preto para o conteúdo */
@@ -134,6 +139,3 @@ input::placeholder{
 .hidden {
     display: none;
 }
-
-
-
